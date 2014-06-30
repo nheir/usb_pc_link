@@ -1,7 +1,7 @@
 usb_pc_link
 ===========
 
-Complete the connection protocol with Philips USB HiFi
+Complete the connection protocol with Philips USB HiFi on Linux
 
 It works with Philips MC-M530. I guess it will work with any other USB PC Link Hifi but I can not test.
 
@@ -19,6 +19,7 @@ Compile:
 Use
 ---
 Switch on and plug the HiFi
+
 Run `./usb_pc_link`
 
 Choose `Set [Philips Audio Set]` as sound card (alsa or pulseaudio)
