@@ -8,22 +8,15 @@
  * apt-get install libusb-dev
  *
  * Compile:
- * g++ -Wall usb_pc_link.cpp -o usb_pc_link -lusb
+ * gcc -Wall usb_pc_link.c -o usb_pc_link -lusb
  *
  * Run as normal user:
  * ./usb_pc_link
  *
  */
 
-
-#include <iostream>
-
-extern "C" {
- #include <usb.h>
- #include <stdio.h>
-}
-
-using namespace std;
+#include <usb.h>
+#include <stdio.h>
 
 #define VENDOR_ID  0x0471
 #define PRODUCT_ID 0x0111
@@ -41,8 +34,7 @@ get_handle(struct usb_device *usbDevice)
 
   if (deviceHandle == NULL)
   {
-    cerr << "Unable to open USB device "
-         << usb_strerror() << endl;
+    fprintf(stderr, "Unable to open USB device %s\n", usb_strerror());
     usb_close(deviceHandle);
     exit(-1);
   }
@@ -74,13 +66,9 @@ findUSBDevice(void) {
   }
 
   if (mcmUSBDevice == NULL) {
-    cerr << "No MCM 530 found." << endl;
-    ::exit(-1);
-  } else {
-    cout << "MCM 530 found as device: "
-         << mcmUSBDevice->filename << "." << endl;
+    fprintf(stderr, "Device %04x:%04x not found\n", VENDOR_ID, PRODUCT_ID);
+    exit(-1);
   }
-
   return mcmUSBDevice;
 }
 
@@ -124,7 +112,7 @@ connection(usb_dev_handle *deviceHandle) {
     index[1], buffer+1, size, timeout);
 
   if (ret < 2) {
-    cerr << "An error occurs in the requests..." << endl;
+    fprintf(stderr, "An error occurs in the requests...\n");
     return -1;
   }
   return 0;
@@ -133,8 +121,6 @@ connection(usb_dev_handle *deviceHandle) {
 
 int
 main(void) {
-  cout << "MCM 530 USB Connection." << endl;
-
   struct usb_device *mcmUSBDevice = findUSBDevice();
 
   usb_dev_handle *deviceHandle = NULL;

@@ -13,7 +13,7 @@ Dependency:
 
 Compile:
 
-    g++ -Wall usb_pc_link.cpp -o usb_pc_link -lusb
+    gcc -Wall usb_pc_link.c -o usb_pc_link -lusb
 
 
 Use
