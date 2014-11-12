@@ -1,1 +1,1 @@
-ACTION=="add", ATTRS{idVendor}=="0471", ATTRS{idProduct}=="0111", RUN+="/usr/bin/usb_pc_link"
+ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="0471", ATTRS{idProduct}=="0111", RUN+="/usr/bin/usb_pc_link"
