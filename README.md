@@ -22,11 +22,19 @@ Compile:
 
 Use
 ---
-Switch on and plug the HiFi
+Switch on and plug the HiFi. This needs to be run every time after plugging in.
 
-Run `./usb_pc_link`
+Run as root `./usb_pc_link`
 
 Linux: Choose `Set [Philips Audio Set]` as sound card (alsa or pulseaudio)
+
+Linux Debian 12 (pipewire):
+* Three output devices appear after plugging in: 
+    - `Digital Output (S/PDIF) - Philips Audio Set`: does not work
+    - `Analog Output - No Bass Boost - Philips Audio Set`: works
+    - `Analog Output - Bass Boost - Philips Audio Set`: works
+* The play, pause, forward and backward buttons from the Philips to control Debian work
+* Cannot use the volume from Debian to control volume on the Philips (but volume on the Philips works)
 
 MacOS: Choose `Philips Audio Set` as Output Device
 
@@ -48,7 +56,7 @@ I find two usb packet that seems to do it.
     |  request        length
     requesttype
 
-`usb_pc_link` uses VendorID and ProductID to select the USB device. If these IDs are not 0471:0111, you may change the lines :
+`usb_pc_link` uses VendorID and ProductID to select the USB device. If these IDs are not 0471:0111 (see output `lsusb`), you may change the lines :
 
     #define VENDOR_ID  0x0471
     #define PRODUCT_ID 0x0111
